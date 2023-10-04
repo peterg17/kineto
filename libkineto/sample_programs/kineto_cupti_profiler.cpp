@@ -11,11 +11,11 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include <iostream>
 
-#include <common/logging/logging.h>
 #include <libkineto.h>
 
-#include "kineto/libkineto/sample_programs/kineto_playground.cuh"
+#include "kineto_playground.cuh"
 
 using namespace kineto;
 
@@ -25,9 +25,12 @@ int main() {
   warmup();
 
   // Kineto config
-  std::set<libkineto::ActivityType> types_cupti_prof = {
-    libkineto::ActivityType::CUDA_PROFILER_RANGE,
-  };
+  std::set<libkineto::ActivityType> types_cupti_prof;
+  //  libkineto::ActivityType::CUDA_PROFILER_RANGE,
+  //};
+
+  libkineto_init(false, true);
+  libkineto::api().initProfilerIfRegistered();
 
   // Use a special kineto__cuda_core_flop metric that counts individual
   // CUDA core floating point instructions by operation type (fma,fadd,fmul,dadd ...)
@@ -40,7 +43,7 @@ int main() {
     "CUPTI_PROFILER_ENABLE_PER_KERNEL=true";
 
   auto& profiler = libkineto::api().activityProfiler();
-  profiler.prepareTrace(types_cupti_prof, profiler_config);
+  profiler.prepareTrace(types_cupti_prof);
 
   // Good to warm up after prepareTrace to get cupti initialization to settle
   warmup();
@@ -51,7 +54,7 @@ int main() {
   basicMemcpyFromDevice();
 
   auto trace = profiler.stopTrace();
-  LOG(INFO) << "Stopped and processed trace. Got " << trace->activities()->size() << " activities.";
+  std::cout << "Stopped and processed trace. Got " << trace->activities()->size() << " activities.";
   trace->save(kFileName);
   return 0;
 }

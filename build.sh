@@ -2,7 +2,7 @@
 g++ \
   -g3 \
   -O0 \
-  libkineto/sample_programs/kineto_playground.cpp \
+  libkineto/sample_programs/kineto_cupti_profiler.cpp \
   -o main \
   -I/usr/local/cuda/include \
   -Ilibkineto/third_party/fmt/include \

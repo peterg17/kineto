@@ -13,7 +13,7 @@
 #include <deque>
 
 #include "include/IActivityProfiler.h"
-#include "output_base.h"
+#include "src/output_base.h"
 
 namespace libkineto {
 
