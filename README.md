@@ -49,3 +49,16 @@ If you plan to contribute new features, please first open an issue and discuss t
 ## License
 Kineto has a BSD-style license, as found in the [LICENSE](LICENSE) file.
 
+## Sample Programs
+To run `kineto_playground.cpp` in the `sample_programs` folder, you can use the following steps:
+Note: scripts below are hard-coded to a specific set of sample programs, you can modify them to work with a different program. TODO: make these scripts more flexible. 
+
+1. `./build-cu.sh`
+    - this generates `kplay-cu.o`
+2. `./build.sh`
+    - this generates `main`
+3. Run `./main`
+
+
+
+
